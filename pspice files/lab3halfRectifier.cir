@@ -1,0 +1,27 @@
+*******************************************************
+* Filename: lab3halfRectifier.cir
+* Author: <larsonma@msoe.edu>
+* Date: march 21, 2018
+* Provides:
+* - SPICE simulation of a half wave rectifier
+* - USE the 1N4148 signal diode model
+*******************************************************
+
+*** semiconductor models
+.model D1N4001	D(Is=14.11n N=1.984 Rs=33.89m Ikf=94.81 Xti=3 Eg=1.11
++		Cjo=25.89p M=.44 Vj=.3245 Fc=.5 Bv=75 Ibv=10u Tt=5.7u)
+*		Motorola
+*		Semiconductor Databook (mid 1970s)
+*		03 Jun 91	pwt	creation
+
+*** circuit description
+V2 1 0 SIN(0,10,60)
+D1 1 2 D1N4001
+C1 2 0 23.6UF
+R1 2 0 4700
+
+*** commands to spice
+*DR M DOES 1/10 TO 1/100 OF BASE UNIT AS STEP
+.TRAN 0.01M 34M
+.PROBE
+.end
